@@ -17,11 +17,19 @@ export const Reducers = {
 
     book(state: any): any {
         console.log(`booking`);
-        throw new Error(`not implemented`);
+        return {
+            ...state,
+            isBooking:true,
+            bookingResults: null
+        };    
     },
 
     bookingComplete(state: any, bookingSuccess: boolean): any {
         console.log(`booking completed`);
-        throw new Error(`not implemented`);
+        return {
+            ...state,
+            isBooking: false,
+            bookingResults:bookingSuccess
+        };   
     },
 };

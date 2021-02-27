@@ -59,6 +59,10 @@ export default class OrdersView extends React.Component<any, any> {
                 <button onClick={(e) => this.onBookRequested()}>
                     book
                 </button>
+                <br/>
+                <h2>{this.state.isBooking? "Booking In Progress":""} </h2>
+                <h2>{this.state.bookingResults ===true && "Booking Sucessful"} </h2>
+                <h2>{this.state.bookingResults ===false && "Booking Failed"} </h2>
             </div>
         );
     }
