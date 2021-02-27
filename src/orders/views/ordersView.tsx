@@ -39,7 +39,16 @@ export default class OrdersView extends React.Component<any, any> {
         this.store.dispatchAction('book');
     };
 
+    
+
     render() {
+
+        let showNotification = this.state.isBooking? "Booking In Progress" : ""
+        if(this.state.bookingResults === true)
+            showNotification = "Booking Sucessful"
+        if(this.state.bookingResults === false)
+            showNotification = "Booking Failed"
+
         return (
             <div>
                 <h1>OrdersList</h1>
@@ -60,9 +69,7 @@ export default class OrdersView extends React.Component<any, any> {
                     book
                 </button>
                 <br/>
-                <h2>{this.state.isBooking? "Booking In Progress":""} </h2>
-                <h2>{this.state.bookingResults ===true && "Booking Sucessful"} </h2>
-                <h2>{this.state.bookingResults ===false && "Booking Failed"} </h2>
+                <h2 className="notification">{showNotification} </h2>
             </div>
         );
     }
