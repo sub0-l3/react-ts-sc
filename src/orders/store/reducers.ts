@@ -1,5 +1,12 @@
+import {
+    ORDERS_AMOUNT_CHANGED,
+    ORDERS_CURRENCY_PAIR_CHANGED,
+    ORDERS_BOOK,
+    ORDERS_BOOK_COMPLETED
+  } from './actions';
+
 export const Reducers = {
-    onAmountChanged(state: any, amount: string): any {
+    [ORDERS_AMOUNT_CHANGED](state: OrdersState, amount: string): OrdersState {
         console.log(`Amount changed from ${state.amount} to ${amount}`);
         return {
             ...state,
@@ -7,7 +14,7 @@ export const Reducers = {
         };
     },
 
-    onCurrencyPairChanged(state: any, currencyPair: string): any {
+    [ORDERS_CURRENCY_PAIR_CHANGED](state: OrdersState, currencyPair: string): OrdersState {
         console.log(`currencyPair changed from ${state.currencyPair} to ${currencyPair}`);
         return {
             ...state,
@@ -15,7 +22,7 @@ export const Reducers = {
         };
     },
 
-    book(state: any): any {
+    [ORDERS_BOOK](state: OrdersState): OrdersState {
         console.log(`booking`);
         return {
             ...state,
@@ -24,7 +31,7 @@ export const Reducers = {
         };    
     },
 
-    bookingComplete(state: any, bookingSuccess: boolean): any {
+    [ORDERS_BOOK_COMPLETED](state: OrdersState, bookingSuccess: boolean): OrdersState {
         console.log(`booking completed`);
         return {
             ...state,

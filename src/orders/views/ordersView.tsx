@@ -2,16 +2,21 @@ import * as React from 'react';
 import {Store} from '../../infrastructure/store';
 import {Reducers} from '../store/reducers';
 import {SideEffects} from '../store/sideEffects';
+import {
+    ORDERS_AMOUNT_CHANGED,
+    ORDERS_CURRENCY_PAIR_CHANGED,
+    ORDERS_BOOK
+  } from '../store/actions';
 import Button from '../../components/Button';
 import {currencyPairs, orderNotifications} from '../../lib/constants';
 
-export default class OrdersView extends React.Component<any, any> {
+export default class OrdersView extends React.Component<Object, OrdersState> {
     private store: Store<any>;
 
     constructor(props: any) {
         super(props);
 
-        const initialState: any = {
+        const initialState: OrdersState = {
             amount: '1m',
             currencyPair: currencyPairs.USDGBP,
             isBooking: false,
@@ -22,23 +27,23 @@ export default class OrdersView extends React.Component<any, any> {
             initialState,
             Reducers,
             SideEffects,
-            (nextState: any) => this.setState(nextState)
+            (nextState: OrdersState) => this.setState(nextState)
         );
 
         // set initial state
         this.state = this.store.currentState;
     }
 
-    onAmountChanged = (amount: any) => {
-        this.store.dispatchAction('onAmountChanged', amount);
+    onAmountChanged = (amount: string) => {
+        this.store.dispatchAction(ORDERS_AMOUNT_CHANGED, amount);
     };
 
     onCurrencyPairChanged = (ccyPair: string) => {
-        this.store.dispatchAction('onCurrencyPairChanged', ccyPair);
+        this.store.dispatchAction(ORDERS_CURRENCY_PAIR_CHANGED, ccyPair);
     };
 
     onBookRequested = () => {
-        this.store.dispatchAction('book');
+        this.store.dispatchAction(ORDERS_BOOK);
     };
 
     
