@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {Store} from '../infrastructure/store';
+import {Store} from '../../infrastructure/store';
 import {Reducers} from '../store/reducers';
 import {SideEffects} from '../store/sideEffects';
+import Button from '../../components/Button';
 
 export default class OrdersView extends React.Component<any, any> {
     private store: Store<any>;
@@ -65,9 +66,9 @@ export default class OrdersView extends React.Component<any, any> {
                 Order summary: <br/>
                 Amount({this.state.amount})
                 <br/>
-                <button onClick={(e) => this.onBookRequested()}>
+                <Button onClick={(e) => this.onBookRequested()}>
                     book
-                </button>
+                </Button>
                 <br/>
                 <h2 className="notification">{showNotification} </h2>
             </div>
