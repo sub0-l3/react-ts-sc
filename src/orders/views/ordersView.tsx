@@ -3,6 +3,7 @@ import {Store} from '../../infrastructure/store';
 import {Reducers} from '../store/reducers';
 import {SideEffects} from '../store/sideEffects';
 import Button from '../../components/Button';
+import {currencyPairs, orderNotifications} from '../../lib/constants';
 
 export default class OrdersView extends React.Component<any, any> {
     private store: Store<any>;
@@ -12,7 +13,7 @@ export default class OrdersView extends React.Component<any, any> {
 
         const initialState: any = {
             amount: '1m',
-            currencyPair: 'USDGBP',
+            currencyPair: currencyPairs.USDGBP,
             isBooking: false,
             bookingResults: null,
         };
@@ -44,11 +45,11 @@ export default class OrdersView extends React.Component<any, any> {
 
     render() {
 
-        let showNotification = this.state.isBooking? "Booking In Progress" : ""
+        let showNotification = this.state.isBooking? orderNotifications.progress : ""
         if(this.state.bookingResults === true)
-            showNotification = "Booking Sucessful"
+            showNotification = orderNotifications.success
         if(this.state.bookingResults === false)
-            showNotification = "Booking Failed"
+            showNotification = orderNotifications.failed
 
         return (
             <div>
@@ -58,9 +59,9 @@ export default class OrdersView extends React.Component<any, any> {
                 <br/>
                 Currency:
                 <select value={this.state.currencyPair} onChange={(e) => this.onCurrencyPairChanged(e.target.value)}>
-                    <option value="EURUSD">EURUSD</option>
-                    <option value="USDJPY">USDJPY</option>
-                    <option value="USDGBP">USDGBP</option>
+                {Object.entries(currencyPairs).map(([key, value]) => (
+                 <option key={key} value={value}>{value}</option>
+                ))}
                 </select>
                 <br/>
                 Order summary: <br/>
