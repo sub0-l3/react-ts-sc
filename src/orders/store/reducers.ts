@@ -34,7 +34,7 @@ export const Reducers = {
     },
 
     [ORDERS_BOOK_SUCCESS](state: OrdersState, payload: payloadSuccess): OrdersState {
-        console.log(`booking Sucess`);
+        console.log(`booking Success`);
         return {
             ...state,
             isBooking: false,

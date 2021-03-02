@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Store} from '../../infrastructure/store';
-import {Reducers} from '../store/reducers';
-import {SideEffects} from '../store/sideEffects';
+import { createStore } from '../store/create'
 import {
     ORDERS_AMOUNT_CHANGED,
     ORDERS_CURRENCY_PAIR_CHANGED,
@@ -15,18 +14,7 @@ export default class OrdersView extends React.Component<Object, OrdersState> {
     constructor(props: Object) {
         super(props);
 
-        const initialState: OrdersState = {
-            amount: '1m',
-            currencyPair: currencyPairs.USDGBP,
-            isBooking: false,
-            bookingResults: null,
-            bookingError: null
-        };
-        // TODO: store logic to be placed outside this component
-        this.store = new Store(
-            initialState,
-            Reducers,
-            SideEffects,
+        this.store = createStore(
             (nextState: OrdersState) => this.setState(nextState)
         );
 
