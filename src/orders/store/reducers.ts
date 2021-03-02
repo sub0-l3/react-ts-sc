@@ -2,7 +2,8 @@ import {
     ORDERS_AMOUNT_CHANGED,
     ORDERS_CURRENCY_PAIR_CHANGED,
     ORDERS_BOOK,
-    ORDERS_BOOK_COMPLETED
+    ORDERS_BOOK_SUCCESS,
+    ORDERS_BOOK_ERROR
   } from './actions';
 
 export const Reducers = {
@@ -27,16 +28,27 @@ export const Reducers = {
         return {
             ...state,
             isBooking:true,
-            bookingResults: null
+            bookingResults: null,
+            bookingError: null
         };    
     },
 
-    [ORDERS_BOOK_COMPLETED](state: OrdersState, bookingSuccess: boolean): OrdersState {
-        console.log(`booking completed`);
+    [ORDERS_BOOK_SUCCESS](state: OrdersState, payload: payloadSuccess): OrdersState {
+        console.log(`booking Sucess`);
         return {
             ...state,
             isBooking: false,
-            bookingResults:bookingSuccess
+            bookingResults:payload.ok
+        };   
+    },
+
+    [ORDERS_BOOK_ERROR](state: OrdersState, payload: payloadError): OrdersState {
+        console.log(`booking Error`);
+        return {
+            ...state,
+            isBooking: false,
+            bookingResults:payload.ok,
+            bookingError: payload.data.errorMessage
         };   
     },
 };

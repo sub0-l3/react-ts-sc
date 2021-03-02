@@ -9,11 +9,10 @@ import {
   } from '../store/actions';
 import Button from '../../components/Button';
 import {currencyPairs, orderNotifications} from '../../lib/constants';
-
 export default class OrdersView extends React.Component<Object, OrdersState> {
-    private store: Store<any>;
+    private store: Store<OrdersState>;
 
-    constructor(props: any) {
+    constructor(props: Object) {
         super(props);
 
         const initialState: OrdersState = {
@@ -21,8 +20,9 @@ export default class OrdersView extends React.Component<Object, OrdersState> {
             currencyPair: currencyPairs.USDGBP,
             isBooking: false,
             bookingResults: null,
+            bookingError: null
         };
-
+        // TODO: store logic to be placed outside this component
         this.store = new Store(
             initialState,
             Reducers,
@@ -54,7 +54,7 @@ export default class OrdersView extends React.Component<Object, OrdersState> {
         if(this.state.bookingResults === true)
             showNotification = orderNotifications.success
         if(this.state.bookingResults === false)
-            showNotification = orderNotifications.failed
+            showNotification = orderNotifications.failed + ` (msg: ${this.state.bookingError})`
 
         return (
             <div>
